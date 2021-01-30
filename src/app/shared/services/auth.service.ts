@@ -84,7 +84,16 @@ export class AuthService {
 
   // Sign in with Google
   GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider());
+    return this.AuthLogin(new auth.GoogleAuthProvider())
+      .then((result) => {
+          this.ngZone.run(() => {
+            console.log("go to dashboard");
+            this.router.navigate(['dashboard']);
+          });
+
+        }).catch((error) => {
+          window.alert(error.message);
+        });
   }
 
   // Auth logic to run auth providers
