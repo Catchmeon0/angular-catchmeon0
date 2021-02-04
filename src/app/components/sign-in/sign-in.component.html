@@ -1,41 +1,62 @@
-<div class="displayTable">
-  <div class="displayTableCell">
-
-    <div class="authBlock">
-      <h3>Sign In</h3>
-      <div class="formGroup">
-        <input type="text" class="formControl" placeholder="Username" #userName required>
-      </div>
-
-      <div class="formGroup">
-        <input type="password" class="formControl" placeholder="Password" #userPassword required>
-      </div>
-
-      <!-- Calling SignIn Api from AuthService -->
-      <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
-      </div>
-
-      <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
-      </div>
-
-      <!-- Calling GoogleAuth Api from AuthService -->
-      <div class="formGroup">
-        <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-          <i class="fab fa-google-plus-g"></i>
-          Log in with Google
+<mat-toolbar>
+  <span>CatchMeOn</span>
+</mat-toolbar>
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="authBlock">
+        <h3>Sign In</h3>
+        <mat-error *ngIf="loginInvalid">
+          The username and password were not recognised
+        </mat-error>
+        <mat-form-field class="full-width-input">
+          <div class="formGroup">
+            <input matInput placeholder="Email" formControlName="username" required>
+          </div>
+          <mat-error>
+            Please provide a valid email address
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width-input">
+          <div class="formGroup">
+            <input matInput type="password" placeholder="Password" formControlName="password" required>
+          </div>
+          <mat-error>
+            Please provide a valid password
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <!-- Calling SignIn Api from AuthService -->
+        <button mat-raised-button color="primary">
+          Login
         </button>
-      </div>
 
-      <div class="forgotPassword">
-        <span routerLink="/forgot-password">Forgot Password?</span>
-      </div>
-    </div>
+        <div class="formGroup">
+          <span class="or"><span class="orInner">Or</span></span>
+        </div>
 
+        <!-- Calling GoogleAuth Api from AuthService -->
+        <div class="formGroup">
+          <button type="button" mat-raised-button color="primary" (click)="authService.GoogleAuth()">
+            <i class="fab fa-google-plus-g"></i>
+            Log in with Google
+          </button>
+        </div>
+
+        <div class="forgotPassword">
+          <span STYLE="text-decoration:underline" routerLink="/forgot-password">Forgot Password?</span>
+        </div>
+
+
+      </div>
+    </form>
     <div class="redirectToLogin">
-      <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
+      <span>Don't have an account?<span class="redirect" STYLE="text-decoration:underline" routerLink="/register-user"> Sign Up</span></span>
     </div>
 
-  </div>
-</div>
+
+  </mat-card-content>
+</mat-card>
+
+

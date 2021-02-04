@@ -32,6 +32,22 @@ export class AuthService {
     });
   }
 
+  async checkAuthenticated() {
+    await this.afAuth.onAuthStateChanged(function(user) {
+      if (user) {
+        return true
+      } else {
+        // No user is signed in.
+      }
+    });
+  }
+
+  async getCurrentUser(){
+    return this.afAuth.currentUser.then(value => {
+      console.log('user email : '+ value.email);
+    });
+  }
+
   // Sign in with email/password
   SignIn(email, password) {
     return this.afAuth.signInWithEmailAndPassword(email, password)
@@ -40,8 +56,6 @@ export class AuthService {
           this.router.navigate(['dashboard']);
           console.log("go to dashboard!!!!!!!");
         });
-        this.SetUserData(result.user);
-
       }).catch((error) => {
         window.alert(error.message);
       });
@@ -61,7 +75,7 @@ export class AuthService {
       console.log("error : couldn't update username")
     });
 
-    userRef.update({"username":username});
+    await userRef.update({"username": username});
 
   }
 
@@ -96,7 +110,7 @@ export class AuthService {
       });
   }
 
-  // Returns true when user is looged in and email is verified
+  // Returns true when user is logged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null && user.emailVerified !== false);

@@ -8,9 +8,9 @@ import { SignUpComponent } from '../../components/sign-up/sign-up.component';
 import { DashboardComponent } from '../../components/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from '../../components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from '../../components/verify-email/verify-email.component';
+import {EditUserComponent} from '../../components/edit-user/edit-user.component';
 
 import { AuthGuard } from '../guard/auth.guard';
-import {EditUserComponent} from '../../components/edit-user/edit-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
