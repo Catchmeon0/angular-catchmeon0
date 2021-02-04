@@ -24,6 +24,10 @@ import {AppRoutingModule} from './shared/routing/app-routing.module';
 
 // Reactive form
 import {ReactiveFormsModule} from '@angular/forms';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 @NgModule({
   declarations: [
@@ -32,7 +36,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     SignUpComponent,
     DashboardComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

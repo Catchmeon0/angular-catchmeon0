@@ -38,11 +38,31 @@ export class AuthService {
       .then((result) => {
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
+          console.log("go to dashboard!!!!!!!");
         });
         this.SetUserData(result.user);
+
       }).catch((error) => {
         window.alert(error.message);
       });
+  }
+
+  async UpdateUser(username) {
+    var user = await this.afAuth.currentUser;
+
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+
+    console.log('user : '+ user.displayName);
+    user.updateProfile({
+      displayName:username
+    }).then(function() {
+      console.log("username updated : "+username);
+    }).catch(function(error) {
+      console.log("error : couldn't update username")
+    });
+
+    userRef.update({"username":username});
+
   }
 
   // Sign up with email/password
@@ -121,6 +141,7 @@ export class AuthService {
       profileImageUrl: user.photoURL,
       emailVerified: user.emailVerified
     };
+
     return userRef.set(userData, {
       merge: true
     });

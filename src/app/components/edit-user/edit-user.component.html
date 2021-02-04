@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0">
-<!--    <img class="brand-logo" src="assets/logo.svg" alt=" Logo">-->
+    <!--    <img class="brand-logo" src="assets/logo.svg" alt=" Logo">-->
   </a>
 </nav>
 
@@ -31,7 +31,7 @@
       <div class="inner-adjust">
 
         <div class="pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">User Profile</h1>
+          <h1 class="h2">Edit User Profile</h1>
         </div>
         <!-- Show user data when logged in -->
         <div class="row" *ngIf="authService.userData as user">
@@ -42,13 +42,22 @@
               <div class="media-body">
                 <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
                 <p>User ID: <strong>{{user.uid}}</strong></p>
-                <p>Email: <strong>{{user.email}}</strong></p>
-                <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+                <form [formGroup]="this.edituserform" (ngSubmit)="onFormSubmit()">
+
+                  Username: <input formControlName="username"  placeholder="{{user.displayName}}"  class="input-field col s12" #userName required>
+                  <p>Email: <strong>{{user.email}}</strong></p>
+                  <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    type="submit" (click)="authService.UpdateUser(userName.value)">Edit</button>
+                </form>
+                <div class="dashboard">
+                  <span routerLink="/dashboard">return to dashboard ?</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="editUser">
-            <span routerLink="/edit-user">edit user?</span>
           </div>
         </div>
 
